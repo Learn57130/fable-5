@@ -1,0 +1,13 @@
+{
+  "name": "fable-5",
+  "version": "1.0.0",
+  "description": "Fable 5's working loop for hard tasks: decompose by verification boundaries, verify against the world, choose next by plan-change.",
+  "author": {
+    "name": "LearNer",
+    "url": "https://github.com/Learn57130"
+  },
+  "homepage": "https://github.com/Learn57130/fable-5",
+  "repository": "https://github.com/Learn57130/fable-5",
+  "keywords": ["decomposition", "verification", "debugging", "methodology", "workflow"],
+  "skills": "./skills/"
+}

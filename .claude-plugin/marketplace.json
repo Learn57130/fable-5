@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "fable-5",
+  "description": "Fable 5 methodology as a plugin: disciplined decomposition, adversarial verification, plan-change-driven next steps.",
+  "owner": {
+    "name": "LearNer",
+    "url": "https://github.com/Learn57130"
+  },
+  "plugins": [
+    {
+      "name": "fable-5",
+      "description": "Decompose by verification boundaries, verify against the world, choose next by plan-change. Ships fable-scout and fable-refuter agents.",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "fable-5",
+  "version": "1.0.0",
+  "description": "Fable 5's working loop for hard tasks: decompose by verification boundaries, verify against the world, choose next by plan-change.",
+  "contextFileName": "AGENTS.md"
+}
