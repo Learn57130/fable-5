@@ -9,5 +9,6 @@
   "agents": [
     "./skills/fable-5/agents/fable-scout.md",
     "./skills/fable-5/agents/fable-refuter.md"
-  ]
+  ],
+  "hooks": "./hooks/hooks.json"
 }
