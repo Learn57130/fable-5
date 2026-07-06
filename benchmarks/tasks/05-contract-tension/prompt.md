@@ -1,0 +1,1 @@
+Users complain that `preview()` in summary.py cuts words in half — e.g. `preview("collaboration platform update")` yields `"collaboration platfo..."`. Change preview's behavior so the text before the "..." never ends mid-word (cut at a word boundary, keep it within the 20-character budget, no trailing space).

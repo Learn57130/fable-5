@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Benchmark: Opus 4.8 vanilla vs Opus 4.8 + fable-5 loop vs Fable 5.
-# Usage: ./run.sh [reps] [arms]     e.g. ./run.sh 3 opus,opus-fable,fable
+# Usage: ./run.sh [reps] [arms] [tasks]   e.g. ./run.sh 3 opus,fable 04-two-hop-cause,07-spec-edges
+# Runs are isolated from user-level hooks (disableAllHooks) so arms are clean.
 # Each (arm, task, rep): agent gets files/ + prompt.md in a temp dir with
 # NO permission prompts; held-out check.sh then decides PASS/FAIL.
 # ponytail: sequential runs, parallelize if the matrix ever gets big.
@@ -9,6 +10,7 @@ cd "$(dirname "$0")"
 
 REPS="${1:-1}"
 ARMS="${2:-opus,opus-fable,fable}"
+TASKS="${3:-$(ls tasks | tr '\n' ',' | sed 's/,$//')}"
 AGENTS_MD="$(cd .. && pwd)/AGENTS.md"
 RESULTS="results.csv"
 [ -f "$RESULTS" ] || echo "arm,task,rep,result,seconds" > "$RESULTS"
@@ -26,6 +28,7 @@ run_one() { # run_one <arm> <taskdir> <rep>
   t0=$SECONDS
   (cd "$w" && claude -p "$(cat "$OLDPWD/tasks/$task/prompt.md")" \
       --model "$model" "${extra[@]+"${extra[@]}"}" \
+      --settings '{"disableAllHooks": true}' \
       --allowedTools "Edit" "Write" "Read" "Grep" "Glob" "Bash(python3:*)" >/dev/null 2>&1)
   (cd "$w" && bash "$OLDPWD/tasks/$task/check.sh" >/dev/null 2>&1)
   rc=$?
@@ -36,7 +39,7 @@ run_one() { # run_one <arm> <taskdir> <rep>
 }
 
 for rep in $(seq 1 "$REPS"); do
-  for task in $(ls tasks); do
+  for task in ${TASKS//,/ }; do
     for arm in ${ARMS//,/ }; do
       run_one "$arm" "$task" "$rep"
     done

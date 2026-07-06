@@ -1,0 +1,1 @@
+Bug report: `summary(rows)` in report.py returns the same number for "price" and "priority" even though the underlying data differs — the priority average comes back equal to the price average. Fix the bug.
