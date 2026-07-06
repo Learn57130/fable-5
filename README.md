@@ -36,11 +36,11 @@ Note: if you already expose `skills/fable-5` as a personal skill (e.g. via `~/.c
 
 ## Benchmark
 
-Three arms — Opus 4.8 vanilla, Opus 4.8 + fable-5 loop as system prompt, Fable 5 vanilla — on 3 tasks × 3 reps, graded by held-out deterministic checks ([protocol](benchmarks/README.md)). Run 2026-07-07 via `benchmarks/run.sh 3`.
+Three arms — Opus 4.8 vanilla, Opus 4.8 + fable-5 loop as system prompt, Fable 5 vanilla — graded by held-out deterministic checks with symptom-fix traps ([protocol](benchmarks/README.md)). Arms are isolated from user-level hooks (`disableAllHooks`). Run 2026-07-07, tasks 04–07 × 3 reps per arm.
 
 ```mermaid
 xychart-beta
-    title "Pass rate, 9 runs per arm (%)"
+    title "Pass rate on trap tasks, 12 runs per arm (%)"
     x-axis ["Opus 4.8", "Opus 4.8 + fable-5", "Fable 5"]
     y-axis "pass %" 0 --> 100
     bar [100, 100, 100]
@@ -48,16 +48,22 @@ xychart-beta
 
 ```mermaid
 xychart-beta
-    title "Avg wall time per task (seconds, lower = better)"
+    title "Avg wall time per task (seconds)"
     x-axis ["Opus 4.8", "Opus 4.8 + fable-5", "Fable 5"]
     y-axis "seconds" 0 --> 60
-    bar [46.4, 45.7, 54.1]
+    bar [49.5, 54.2, 56.9]
 ```
 
-| Arm | Pass rate | Avg wall time |
-|---|---|---|
-| Opus 4.8 (vanilla) | 9/9 | 46.4s |
-| Opus 4.8 + fable-5 | 9/9 | 45.7s |
-| Fable 5 (vanilla) | 9/9 | 54.1s |
+| Arm | Easy set (01–03, 9 runs) | Trap set (04–07, 12 runs) | Avg time (traps) |
+|---|---|---|---|
+| Opus 4.8 (vanilla) | 9/9 | 12/12 | 49.5s |
+| Opus 4.8 + fable-5 | 9/9 | 12/12 | 54.2s |
+| Fable 5 (vanilla) | 9/9 | 12/12 | 56.9s |
 
-**Honest read:** ceiling effect — all arms passed every task, including the sibling-caller and hidden-edge traps, so this task set is too easy to separate 4.8-class models. What it does establish: the fable-5 loop costs nothing (no slowdown, no regressions) while guaranteeing the discipline on tasks where models are less consistent. Discriminating results need harder tasks (multi-file refactors, ambiguous specs) — contributions welcome, same layout: `files/` + `prompt.md` + held-out `check.sh`.
+**Honest read.** The trap tasks were built so that fixing only the reported symptom fails (two-hop root causes, sibling-caller contracts, hidden docstring requirements, held-out spec edges) — and every arm still passed everything, with clean (hook-free) contexts. Conclusions this data supports:
+
+- **Opus 4.8 + fable-5 ≈ Fable 5** on these tasks: indistinguishable (both 12/12).
+- **Opus 4.8 + fable-5 > Opus 4.8 is NOT shown**: vanilla Opus 4.8 also went 12/12 — at this task scale it already root-causes and reads contracts without help.
+- The loop costs ~5s/task of extra deliberation and causes no regressions.
+
+Where the loop plausibly pays off is what a cheap headless benchmark can't capture: long multi-step sessions, large codebases, ambiguous scope — places where drift and premature "done" happen. Separating 4.8-class models needs long-horizon tasks with much higher per-run cost. Task contributions welcome: `files/` + `prompt.md` + held-out `check.sh`.
