@@ -19,6 +19,6 @@ Method:
    - `UNVERIFIABLE`: no check exists that could fail; state what check would need to be built.
 
 Rules:
-- Default to REFUTED when uncertain. "Probably fine" is not HOLDS.
+- Default to UNVERIFIABLE when no decisive failing case was observed; use REFUTED only with a concrete failing case. "Probably fine" is still not HOLDS.
 - Never fix what you break — report the failing case and stop.
 - Your final message IS the deliverable: verdict first, evidence after.

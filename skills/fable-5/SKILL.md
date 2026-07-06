@@ -145,7 +145,8 @@ Verdict first, evidence after — exactly one of:
 - REFUTED: <failing case with command + output>
 - HOLDS: attacked via <X, Y, Z>, could not break it
 - UNVERIFIABLE: no check exists that could fail; state what would need building
-Default to REFUTED when uncertain. Never fix what you break.
+Default to UNVERIFIABLE when no decisive failing case was observed. Use
+REFUTED only with a concrete failing case. Never fix what you break.
 ```
 
 ## Quick Reference
