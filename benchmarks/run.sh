@@ -26,7 +26,7 @@ run_one() { # run_one <arm> <taskdir> <rep>
   t0=$SECONDS
   (cd "$w" && claude -p "$(cat "$OLDPWD/tasks/$task/prompt.md")" \
       --model "$model" "${extra[@]+"${extra[@]}"}" \
-      --dangerously-skip-permissions >/dev/null 2>&1)
+      --allowedTools "Edit" "Write" "Read" "Grep" "Glob" "Bash(python3:*)" >/dev/null 2>&1)
   (cd "$w" && bash "$OLDPWD/tasks/$task/check.sh" >/dev/null 2>&1)
   rc=$?
   t1=$SECONDS

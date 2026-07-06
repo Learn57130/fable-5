@@ -23,7 +23,7 @@ Each task gives the agent `files/` + `prompt.md` in a clean temp dir. A **held-o
 ./run.sh 1 opus-fable # smoke a single arm
 ```
 
-Requires the `claude` CLI authenticated. Runs use `--dangerously-skip-permissions` inside throwaway temp dirs. Results append to `results.csv`.
+Requires the `claude` CLI authenticated. Runs happen in throwaway temp dirs with a scoped tool allowlist (file edits + `python3` only). Results append to `results.csv`.
 
 ## Honesty notes
 
