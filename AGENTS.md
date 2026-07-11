@@ -13,4 +13,4 @@ For any hard, multi-step, or ambiguous task, run this loop (full detail in `skil
 
 Red flags: "obviously fine, skip the check" · "I'll verify everything at the end" · "need more context" when no answer changes the plan · "the fix works for the reported case" with siblings unchecked.
 
-References: `skills/fable-5/references/verification-catalog.md` (smallest failing check per task type), `skills/fable-5/references/decomposition-patterns.md`. Pre-completion sweep: `skills/fable-5/scripts/preflight.sh`. Agent prompt templates: `skills/fable-5/agents/` (scout = read-only comprehension; refuter = adversarial verification, defaults to REFUTED).
+References: `skills/fable-5/references/verification-catalog.md` (smallest failing check per task type), `skills/fable-5/references/decomposition-patterns.md`. Pre-completion sweep: `skills/fable-5/scripts/preflight.sh`. Agent prompt templates: `skills/fable-5/agents/` (scout = read-only comprehension; refuter = adversarial verification — REFUTED only with a concrete failing case, defaults to UNVERIFIABLE).

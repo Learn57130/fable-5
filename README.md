@@ -9,7 +9,7 @@ Built by [LearNer](https://github.com/Learn57130).
 ## Contents
 
 - `skills/fable-5/` — the skill: 8-step loop, verification catalog (smallest failing check per task type), decomposition patterns, `preflight.sh` pre-completion sweep.
-- `skills/fable-5/agents/` — `fable-scout` (read-only comprehension pass) and `fable-refuter` (adversarial verifier, defaults to REFUTED when uncertain). Registered automatically on plugin install; also usable as plain prompt templates in other harnesses.
+- `skills/fable-5/agents/` — `fable-scout` (read-only comprehension pass) and `fable-refuter` (adversarial verifier — REFUTED only with a concrete failing case, defaults to UNVERIFIABLE when uncertain). Registered automatically on plugin install; also usable as plain prompt templates in other harnesses.
 
 ## Install
 

@@ -98,7 +98,7 @@ Test: would ANY content of that file change what I do next?
 
 ## Subagents in the Loop
 
-If the host harness has an agent/subagent tool, map it onto the loop:
+If the host harness has an agent/subagent tool AND permits proactive dispatch, map it onto the loop as below. Harness policy wins: some harnesses restrict agent spawning to explicit user request (cold-start cost) — there, run the loop solo and dispatch only when the user asks.
 
 - **Step 1 (read fully)**: dispatch `fable-scout` agents in parallel (one per subsystem) for the scout pass; keep conclusions, not file dumps.
 - **Step 4 (fan out reads)**: independent searches/reads go to parallel agents in one dispatch; any judgment-dependent work stays serialized in the main context.

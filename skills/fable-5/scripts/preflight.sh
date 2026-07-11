@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # preflight.sh — pre-completion sweep before declaring a code task done.
-# Usage: preflight.sh [dir]   (defaults to current directory; scans git-tracked
-# changes if in a repo, else the whole dir)
+# Usage: preflight.sh [dir]   (defaults to current directory; in a git repo scans
+# uncommitted changes + untracked files, else the whole dir)
 # Exit 0 = clean, 1 = findings to review. Findings are prompts, not verdicts.
 set -euo pipefail
 
@@ -12,7 +12,7 @@ FOUND=0
 scan() { # scan <label> <grep-pattern>
   local label="$1" pattern="$2" hits
   if git rev-parse --git-dir >/dev/null 2>&1; then
-    # only files touched on this branch/working tree
+    # uncommitted changes vs HEAD + untracked files; commits already on the branch are NOT scanned
     hits=$( { git diff --name-only HEAD 2>/dev/null; git ls-files --others --exclude-standard; } \
       | sort -u | xargs grep -lnE "$pattern" 2>/dev/null || true)
   else
